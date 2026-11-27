@@ -48,6 +48,7 @@ jobs:
       - name: Render Mermaid diagrams
         run: |
           mmdc \
+            -p templates/puppeteer-config.json \
             -i docs/specification.md \
             -o build/specification.md
 
