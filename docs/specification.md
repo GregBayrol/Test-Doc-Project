@@ -37,6 +37,29 @@ $$
 V = L \times W \times D
 $$
 
+## Mermaid diagram test
+
+The following Mermaid source describes the documentation publishing flow:
+
+```mermaid
+flowchart LR
+    MD["Markdown<br/>specification.md"]
+    ASSETS["Assets<br/>images / diagrams"]
+    BUILD["GitHub Actions<br/>Pandoc"]
+    HTML["HTML"]
+    PDF["PDF"]
+    PAGES["GitHub Pages"]
+    RELEASE["GitHub Release"]
+
+    MD --> BUILD
+    ASSETS --> BUILD
+    BUILD --> HTML
+    BUILD --> PDF
+    HTML --> PAGES
+    HTML --> RELEASE
+    PDF --> RELEASE
+```
+
 ## Version
 
 The release version is supplied by the Git tag used to trigger the workflow.
