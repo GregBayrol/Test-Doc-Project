@@ -18,42 +18,72 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: pandoc/latex:latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Determine version
-        shell: sh
         run: echo "DOC_VERSION=${GITHUB_REF_NAME}" >> "$GITHUB_ENV"
 
-      - name: Build HTML and PDF
-        shell: sh
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Mermaid CLI
+        run: npm install --global @mermaid-js/mermaid-cli
+
+      - name: Install Pandoc and XeLaTeX
         run: |
-          mkdir -p dist/assets release
-          cp -R docs/assets/. dist/assets/
-          pandoc docs/specification.md \
+          sudo apt-get update
+          sudo apt-get install -y pandoc texlive-xetex texlive-latex-extra
+
+      - name: Prepare build directories
+        run: |
+          mkdir -p build
+          mkdir -p dist/assets
+          mkdir -p release
+
+      - name: Render Mermaid diagrams
+        run: |
+          mmdc \
+            -i docs/specification.md \
+            -o build/specification.md
+
+      - name: Build HTML
+        run: |
+          pandoc build/specification.md \
             --standalone \
             --mathjax \
             --css=style.css \
-            --resource-path=docs \
+            --resource-path=docs:build \
             -o dist/index.html
-          cp templates/style.css dist/style.css
 
-          pandoc docs/specification.md \
+          cp templates/style.css dist/style.css
+          cp -R docs/assets/. dist/assets/
+
+      - name: Build PDF
+        run: |
+          pandoc build/specification.md \
             --pdf-engine=xelatex \
             --template=templates/pdf-template.tex \
-            --resource-path=docs \
+            --resource-path=docs:build \
             -o "release/specification-${DOC_VERSION}.pdf"
 
-          cp dist/index.html "release/specification-${DOC_VERSION}.html"
+      - name: Prepare HTML release
+        run: |
+          cp dist/index.html \
+            "release/specification-${DOC_VERSION}.html"
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: documentation-${{ env.DOC_VERSION }}
           path: release/
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
@@ -72,8 +102,10 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-latest
     needs: build
+
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
