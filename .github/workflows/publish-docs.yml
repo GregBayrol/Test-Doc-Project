@@ -50,6 +50,7 @@ jobs:
             pandoc \
             texlive-latex-extra \
             texlive-xetex \
+            texlive-fonts-recommended \
             lmodern
 
       - name: Build and validate documentation
