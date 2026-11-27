@@ -160,7 +160,7 @@ cp templates/style.css "$DIST_DIR/style.css"
 "$PANDOC" "$HTML_MARKDOWN" \
   --from=markdown \
   --standalone \
-  --mathjax \
+  --mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js \
   --css=style.css \
   --resource-path="$HTML_BUILD_DIR" \
   --output="$DIST_DIR/index.html"
