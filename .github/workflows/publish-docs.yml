@@ -38,7 +38,11 @@ jobs:
       - name: Install Pandoc and XeLaTeX
         run: |
           sudo apt-get update
-          sudo apt-get install -y pandoc texlive-xetex texlive-latex-extra
+          sudo apt-get install -y \
+            pandoc \
+            texlive-xetex \
+            texlive-latex-extra \
+            librsvg2-bin
 
       - name: Prepare build directories
         run: |
@@ -69,9 +73,11 @@ jobs:
         run: |
           pandoc build/specification.md \
             --pdf-engine=xelatex \
-            --template=templates/pdf-template.tex \
             --resource-path=docs:build \
+            -V geometry:margin=22mm \
+            -V colorlinks=true \
             -o "release/specification-${DOC_VERSION}.pdf"
+
 
       - name: Prepare HTML release
         run: |
