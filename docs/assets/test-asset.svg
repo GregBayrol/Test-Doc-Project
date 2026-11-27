@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="300" viewBox="0 0 800 300">
+  <rect width="800" height="300" fill="#f4f7fb"/>
+  <rect x="80" y="90" width="180" height="120" rx="16" fill="#177ddc"/>
+  <rect x="540" y="90" width="180" height="120" rx="16" fill="#4caf50"/>
+  <path d="M280 150 H520" stroke="#334155" stroke-width="8"/>
+  <path d="M500 130 L525 150 L500 170" fill="none" stroke="#334155" stroke-width="8"/>
+  <text x="170" y="158" text-anchor="middle" font-family="Arial" font-size="27" fill="white">Markdown</text>
+  <text x="630" y="158" text-anchor="middle" font-family="Arial" font-size="27" fill="white">Published</text>
+</svg>

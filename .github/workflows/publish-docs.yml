@@ -1,0 +1,80 @@
+name: Publish documentation
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: pandoc/latex:latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Determine version
+        shell: sh
+        run: echo "DOC_VERSION=${GITHUB_REF_NAME}" >> "$GITHUB_ENV"
+
+      - name: Build HTML and PDF
+        shell: sh
+        run: |
+          mkdir -p dist/assets release
+          cp -R docs/assets/. dist/assets/
+          pandoc docs/specification.md \
+            --standalone \
+            --mathjax \
+            --css=style.css \
+            --resource-path=docs \
+            -o dist/index.html
+          cp templates/style.css dist/style.css
+
+          pandoc docs/specification.md \
+            --pdf-engine=xelatex \
+            --template=templates/pdf-template.tex \
+            --resource-path=docs \
+            -o "release/specification-${DOC_VERSION}.pdf"
+
+          cp dist/index.html "release/specification-${DOC_VERSION}.html"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation-${{ env.DOC_VERSION }}
+          path: release/
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist/
+
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            release/specification-${{ env.DOC_VERSION }}.pdf
+            release/specification-${{ env.DOC_VERSION }}.html
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

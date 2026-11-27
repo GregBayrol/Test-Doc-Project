@@ -1,0 +1,26 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{longtable,booktabs,array}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\geometry{margin=22mm}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\begin{document}
+$if(title)$
+\begin{center}
+{\LARGE\bfseries $title$\par}
+\vspace{4mm}
+$if(author)${\large $author$\par}$endif$
+$if(date)${\small $date$\par}$endif$
+\end{center}
+\vspace{8mm}
+$endif$
+
+$body$
+\end{document}

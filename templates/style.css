@@ -1,0 +1,17 @@
+/* Minimal HTML style for the Pandoc-generated document */
+:root { color-scheme: light; }
+body {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.6;
+  color: #1f2937;
+}
+h1, h2, h3 { color: #123b5d; }
+h1 { border-bottom: 3px solid #177ddc; padding-bottom: .4rem; }
+img { max-width: 100%; height: auto; }
+table { border-collapse: collapse; }
+th, td { border: 1px solid #cbd5e1; padding: .45rem .7rem; }
+th { background: #f1f5f9; }
+code { background: #f1f5f9; padding: .1rem .25rem; }
