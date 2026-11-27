@@ -1,0 +1,8 @@
+{
+  "theme": "default",
+  "fontFamily": "DejaVu Sans, Arial, sans-serif",
+  "flowchart": {
+    "htmlLabels": false,
+    "useMaxWidth": true
+  }
+}

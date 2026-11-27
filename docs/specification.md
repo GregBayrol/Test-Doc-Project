@@ -1,65 +1,43 @@
 ---
-title: "Documentation Pipeline Test"
-author: "Example Engineering Team"
-date: "2026-11-27"
+title: Test Documentation Specification
+author: Documentation Team
+date: 2026-11-27
 ---
 
-# Documentation Pipeline Test
+# Purpose
 
-This is a minimal Markdown document used to test a GitHub publishing pipeline.
+This small document validates the complete GitHub documentation pipeline.
 
-## Picture / asset test
+It includes normal Markdown, a repository asset, mathematics, a table, and a Mermaid diagram.
 
-The image below is referenced with a **relative path**:
+## Repository asset
 
-![Test asset](assets/test-asset.svg)
+The image below is stored in `docs/assets/` and referenced with a relative path.
 
-## Formatting test
+![Test repository asset](assets/test-asset.svg)
 
-- Markdown source remains easy to review in Git.
-- HTML is generated with Pandoc and a CSS template.
-- PDF is generated with Pandoc and XeLaTeX.
-
-### Small table
-
-| Item | Value |
-|---|---:|
-| Pumps | 2 |
-| Water volume | 50 m³ |
-
-### Math test
-
-Inline math: $Q = vA$.
-
-Display math:
-
-$$
-V = L \times W \times D
-$$
-
-## Mermaid diagram test
-
-The following Mermaid source describes the documentation publishing flow:
+## Mermaid diagram
 
 ```mermaid
 flowchart LR
-    MD["Markdown<br/>specification.md"]
-    ASSETS["Assets<br/>images / diagrams"]
-    BUILD["GitHub Actions<br/>Pandoc"]
-    HTML["HTML"]
-    PDF["PDF"]
-    PAGES["GitHub Pages"]
-    RELEASE["GitHub Release"]
-
-    MD --> BUILD
-    ASSETS --> BUILD
-    BUILD --> HTML
-    BUILD --> PDF
-    HTML --> PAGES
-    HTML --> RELEASE
-    PDF --> RELEASE
+    A[Markdown source] --> B[GitHub Actions]
+    B --> C[Standalone HTML]
+    B --> D[PDF]
+    B --> E[GitHub Pages]
+    C --> F[GitHub Release]
+    D --> F
 ```
 
-## Version
+## Example content
 
-The release version is supplied by the Git tag used to trigger the workflow.
+An inline equation: $E = mc^2$.
+
+| Output | Purpose |
+|---|---|
+| HTML | Portable, self-contained download |
+| PDF | Portable release document |
+| Pages | Public online documentation |
+
+## Release behavior
+
+A manual workflow run builds and validates artifacts without publishing them. A pushed tag matching `v*`, such as `v0.1.0`, also creates a GitHub Release and deploys GitHub Pages.

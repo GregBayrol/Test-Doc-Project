@@ -1,9 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="300" viewBox="0 0 800 300">
-  <rect width="800" height="300" fill="#f4f7fb"/>
-  <rect x="80" y="90" width="180" height="120" rx="16" fill="#177ddc"/>
-  <rect x="540" y="90" width="180" height="120" rx="16" fill="#4caf50"/>
-  <path d="M280 150 H520" stroke="#334155" stroke-width="8"/>
-  <path d="M500 130 L525 150 L500 170" fill="none" stroke="#334155" stroke-width="8"/>
-  <text x="170" y="158" text-anchor="middle" font-family="Arial" font-size="27" fill="white">Markdown</text>
-  <text x="630" y="158" text-anchor="middle" font-family="Arial" font-size="27" fill="white">Published</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 240" role="img" aria-labelledby="title desc">
+  <title id="title">Documentation pipeline test asset</title>
+  <desc id="desc">Markdown flows through GitHub Actions to HTML, PDF, and Pages.</desc>
+  <rect width="800" height="240" rx="24" fill="#f1f5f9"/>
+  <rect x="40" y="65" width="190" height="110" rx="14" fill="#123b5d"/>
+  <rect x="305" y="65" width="190" height="110" rx="14" fill="#177ddc"/>
+  <rect x="570" y="65" width="190" height="110" rx="14" fill="#0f766e"/>
+  <path d="M230 120h75M495 120h75" stroke="#334155" stroke-width="8"/>
+  <path d="m290 104 15 16-15 16M555 104l15 16-15 16" fill="none" stroke="#334155" stroke-width="8"/>
+  <g fill="#fff" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" text-anchor="middle">
+    <text x="135" y="128">Markdown</text>
+    <text x="400" y="128">GitHub Actions</text>
+    <text x="665" y="112">HTML · PDF</text>
+    <text x="665" y="144">Pages</text>
+  </g>
 </svg>
